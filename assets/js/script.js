@@ -132,16 +132,51 @@ function handleAddTask(event){
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
-
+    const taskId = $(this).attr('data-task-id');
+    const tasks = readTasksFromStorage();
+  
+    tasks.forEach((task) => {
+      if (task.id === taskId) {
+        tasks.splice(tasks.indexOf(task), 1);
+      }
+    });
+  
+    saveTasksToStorage(tasks);
+  
+    renderTaskList();
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+  const tasks = readTasksFromStorage();
 
+  const taskId = ui.draggable[0].dataset.taskId;
+
+  const newStatus = event.target.id;
+
+  for (let task of tasks) {
+    if (task.id === taskId) {
+      task.status = newStatus;
+    }
+  }
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  printTaskData();
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
+    printTaskData();
 
+    $('#taskDueDate').datepicker({
+      changeMonth: true,
+      changeYear: true,
+    });
+  
+  
+    $('.lane').droppable({
+      accept: '.draggable',
+      drop: handleDrop,
+    });
+  
 });
 
