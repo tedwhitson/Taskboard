@@ -42,7 +42,30 @@ function renderTaskList() {
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
+    event.preventDefault();
 
+    const taskName = taskNameInputEl.val().trim();
+    const taskType = taskTypeInputEl.val();
+    const taskDate = taskDateInputEl.val();
+  
+    const newTask = {
+      id: crypto.randomUUID(),
+      name: taskName,
+      type: taskType,
+      dueDate: taskDate,
+      status: 'to-do',
+    };
+  
+    const tasks = readTasksFromStorage();
+    tasks.push(newTask);
+  
+    saveTasksToStorage(tasks);
+  
+    renderTaskList();
+  
+    taskNameInputEl.val('');
+    taskTypeInputEl.val('');
+    taskDateInputEl.val('');
 }
 
 // Todo: create a function to handle deleting a task
