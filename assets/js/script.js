@@ -1,10 +1,33 @@
+const taskNameInputEl = $('#task-name-input');
+const taskTypeInputEl = $('#task-type-input');
+const taskDateInputEl = $('#taskDueDate');
+
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
-let nextId = JSON.parse(localStorage.getItem("nextId"));
+function readTasksFromStorage () {
+    let taskList = JSON.parse(localStorage.getItem("tasks"));
+    if (!tasks) {
+        tasks = [];
+    }
+    return tasks;
+}
+
+function readNextIdFromStorage () {
+    let nextId = JSON.parse(localStorage.getItem("nextId"));
+    return nextId;
+}
+    
+function saveTasksToStorage () {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
+
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
 
+function readTaskIdFromStorage () {
+    let taskId = JSON.parse(localStorage.getItem("taskId"));
+    return taskId;
+}
 }
 
 // Todo: create a function to create a task card
